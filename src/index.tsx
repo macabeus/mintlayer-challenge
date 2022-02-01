@@ -1,8 +1,11 @@
-import React from 'react'
+import React, { Suspense } from 'react'
 import ReactDOM from 'react-dom'
+import Main from './pages/main'
 
 const App = () => (
-  <h1>Hello World</h1>
+  <Suspense fallback={<p>Loading...</p>}>
+    <Main />
+  </Suspense>
 )
 
 ReactDOM.render(<App />, document.getElementById('app'))
