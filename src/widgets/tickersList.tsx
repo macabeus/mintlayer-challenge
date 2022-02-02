@@ -1,8 +1,14 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import useResource from '../hooks/useResource'
+import ActiveTickerContext from '../contexts/activeTickerContext'
 
 const TickersList = () => {
   const tickets = useResource({ resource: 'tickers', args: { symbols: [] } })
+  const { selectSymbol } = useContext(ActiveTickerContext)
+
+  const onClickHistory = (symbol: string) => () => {
+    selectSymbol(symbol)
+  }
 
   return (
     <table>
@@ -14,6 +20,7 @@ const TickersList = () => {
           <th>Ask</th>
           <th>Daily Change</th>
           <th>Volume</th>
+          <th>More</th>
         </tr>
       </thead>
       <tbody>
@@ -26,6 +33,7 @@ const TickersList = () => {
               <td>{ticket.ask}</td>
               <td>{ticket.dailyChange}</td>
               <td>{ticket.volume}</td>
+              <td><button onClick={onClickHistory(ticket.symbol)}>History</button></td>
             </tr>
           ))
         }
